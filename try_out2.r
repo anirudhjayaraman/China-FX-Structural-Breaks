@@ -7,11 +7,7 @@ cny <- fxreturns("CNY", frequency = "daily",
                  start = as.Date("2005-07-25"), end = as.Date("2010-02-12"),
                  other = c("USD", "JPY", "EUR", "GBP"))
 ## compute all segmented regression with minimal segment size of
-## h = 20 and maximal number of breaks = 5
-reg <- fxregimes(CNY ~ USD + JPY + EUR + GBP,
-                 data = cny, h = 20, breaks = 5, ic = "BIC")
-summary(reg)
-plot(reg)
+## h = 100 and maximal number of breaks = 10
 
 regx <- fxregimes(CNY ~ USD + JPY + EUR + GBP,
                  data = cny, h = 100, breaks = 10, ic = "BIC")
@@ -21,11 +17,10 @@ plot(regx)
 round(coef(regx), digits = 3)
 sqrt(coef(regx)[, "(Variance)"])
 ## inspect associated confidence intervals
-cit <- confint(regx, level = 0.9)
-cit
-breakdates(cit)
+conf_int <- confint(regx, level = 0.9)
+breakdates(conf_int)
 ## plot LM statistics along with confidence interval
 flm <- fxlm(CNY ~ USD + JPY + EUR + GBP, data = cny)
 scus <- gefp(flm, fit = NULL)
 plot(scus, functional = supLM(0.1))
-lines(cit)
+lines(conf_int)
