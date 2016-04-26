@@ -1,14 +1,13 @@
-## if fxregime package is absent from installed packages, download it and load it
+## if fxregime or strucchange package is absent from installed packages, download it and load it
 if(!require('fxregime')){
   install.packages("fxregime")
 }
 if(!require('strucchange')){
   install.packages("strucchange")
 }
-## load package and data in case fxregime is present in installed packages
+## load packages 
 library("fxregime")
-library("strucchange")
-
+library('strucchange')
 # load the necessary data related to exchange rates - 'FXRatesCHF'
 # this dataset treats CHF as unit currency
 data("FXRatesCHF", package = "fxregime")
